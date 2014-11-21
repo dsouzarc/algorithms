@@ -7,28 +7,39 @@ import java.util.LinkedList;
  * words from a dictionary */
 
 public class TrieNode { 
-    private TrieNode[] children;
-    private TrieNode parent;
+    private final TrieNode parent;
+    private final TrieNode[] children;
 
     //Last character of word
     private boolean isWord;
 
     //Other children
-    private boolean isLeaf;
+    private boolean hasChildren;
 
-    private char value;
+    //Value of this node
+    private final char value;
 
     /** Top level Node constructor */
     public TrieNode() { 
+        //26 Nodes, one for each letter of alphabet
         this.children = new TrieNode[26];
-        this.isLeaf = true;
+
+        this.hasChildren = true;
         this.isWord  = false;
+        this.parent = null;
+        this.value = ' ';
     }
 
-    /** Children constructor */
-    public TrieNode(final char value) { 
-        this();
+    /** Constructor for child nodes */
+    public TrieNode(final char value, final TrieNode parent) { 
+        this.parent = parent;
         this.value = value;
+        
+        //26 Nodes, one for each letter of alphabet
+        this.children = new TrieNode[26];
+
+        this.hasChildren = true;
+        this.isWord  = false;
     }
 
     /** Recursively adds characters as child nodes */
@@ -36,69 +47,64 @@ public class TrieNode {
         word = word.toLowerCase();
 
         //Has children
-        isLeaf = false;
+        this.hasChildren = false;
 
         //ASCII Value
-        int charPosition = word.charAt(0) - 'a';
+        final int charPosition = word.charAt(0) - 'a';
 
         //If no children with that constructor exists
-        if(children[charPosition] == null) { 
-            //Make a new Node
-            children[charPosition] = new TrieNode(word.charAt(0));
-            
-            //That node's parent is this
-            children[charPosition].parent = this;
+        if(this.children[charPosition] == null) { 
+
+            //Make a new Node and set its parent as this one's
+            this.children[charPosition] = new TrieNode(word.charAt(0), this);
         }
         
         //Recursive part to add word
         if(word.length() > 1) { 
-            children[charPosition].addWord(word.substring(1));
+            this.children[charPosition].addWord(word.substring(1));
         }
+
         //If no more characters left, is end
         else { 
-            children[charPosition].isWord = true;
+           this.children[charPosition].isWord = true;
         }
-        System.out.println(java.util.Arrays.toString(children) + "\t" + value);
     }
 
     /** Return nodes associated with character */
     public TrieNode getNode(final char toGet) { 
-        final int loc = (int)toGet >= 65 && (int)toGet < 97 ? (int)toGet - 65: (int)toGet - 97;
-        return children[toGet - 'a'];
+        return this.children[toGet - 'a'];
     }
 
     /** Return list of words beneath */
-    public LinkedList getWords() { 
-        final LinkedList words = new LinkedList();
+    public LinkedList<String>  getWords() { 
+        final LinkedList<String>  words = new LinkedList<String> ();
 
         //If last char of word, add ourself
-        if(isWord) { 
-            System.out.println(toString());
-            words.add(toString());
+        if(this.isWord) { 
+            words.add(this.toString());
         }
 
         //Get all children
-        if(!isLeaf) { 
-            for(int i = 0; i < this.children.length; i++) { 
-                if(this.children[i] != null) { 
+        if(!this.hasChildren) { 
+            for(TrieNode child : this.children) {
+                if(child != null) { 
                     //Add the child
-                    words.addAll(this.children[i].getWords());
+                    words.addAll(child.getWords());
                 }
             }
         }
-
         return words;
     }
 
     /** Return toString representation (goes to parent
      * and adds child nodes) */
     public String toString() { 
-        if(parent == null) { 
+        if(this.parent == null) { 
             return "";
         }
 
         else { 
-            return parent.toString() + new String(new char[]{value});
+            return this.parent.toString() + String.valueOf(value); 
         }
     }
 }
