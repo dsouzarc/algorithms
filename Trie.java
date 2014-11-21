@@ -15,17 +15,18 @@ public class Trie {
         this.root.addWord(word.toLowerCase());
     }
 
-    public LinkedList getWordsWithPrefix(final String prefix) { 
+    public String[] getWordsWithPrefix(final String prefix) { 
         TrieNode valNodes = root;
 
         for(Character c : prefix.toCharArray()) { 
             valNodes = valNodes.getNode(c);
 
             if(valNodes == null) {
-                return new LinkedList();
+                return new String[]{}; 
             }
         }
-        return valNodes.getWords();
+        final LinkedList<String> vals = valNodes.getWords();
+        return vals.toArray(new String[vals.size()]);
     }
 
     public static void main(String[] ryan) { 
@@ -33,8 +34,7 @@ public class Trie {
         me.addWord("ryan");
         me.addWord("ryannayr");
 
-        final LinkedList<String> r = me.getWordsWithPrefix("rya");
-        System.out.println(r.size());
+        final String[] r = me.getWordsWithPrefix("rya");
 
         for(String s : r) { 
             System.out.println(s);
