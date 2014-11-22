@@ -75,9 +75,9 @@ public class TrieNode {
         return this.children[toGet - 'a'];
     }
 
-    /** Return list of words beneath */
-    public LinkedList<String>  getWords() { 
-        final LinkedList<String>  words = new LinkedList<String> ();
+    /** Return list of N words beneath */
+    public LinkedList<String> getWords(final int N) { 
+        final LinkedList<String> words = new LinkedList<String>();
 
         //If last char of word, add ourself
         if(this.isWord) { 
@@ -91,9 +91,26 @@ public class TrieNode {
                     //Add the child
                     words.addAll(child.getWords());
                 }
+
+                //If we have more than words we need
+                if(words.size() >= N) { 
+
+                    //Return the exact amount of words we need
+                    if(words.size() > N) { 
+                        return (LinkedList<String>) words.subList(0, N);
+                    }
+                    else { 
+                        return words;
+                    }
+                }
             }
         }
         return words;
+    }
+
+    /** Return all words beneath */
+    public LinkedList<String> getWords() { 
+        return getWords(Integer.MAX_VALUE);
     }
 
     /** Return toString representation (goes to parent

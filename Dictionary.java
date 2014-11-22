@@ -24,13 +24,16 @@ public final class Dictionary {
         this.wordTrie = new Trie();
 
         final String fileName = "dictionary.txt";
-        
+        final long startTime = System.currentTimeMillis();
+
         try { 
             final BufferedReader theReader = new BufferedReader(new FileReader(fileName));
 
             while(theReader.ready()) { 
                 this.wordTrie.addWord(theReader.readLine());
             }
+
+            System.out.println("Dictionary loaded in: " + (System.currentTimeMillis() - startTime));
         }
 
         catch(Exception e) { 
@@ -43,7 +46,10 @@ public final class Dictionary {
     }
 
     public String[] getWords(final String prefix) { 
-        return this.wordTrie.getWordsWithPrefix(prefix.toLowerCase());
+        final long startTime = System.currentTimeMillis();
+        final String[] result = this.wordTrie.getWordsWithPrefix(prefix.toLowerCase());
+        System.out.println(prefix + "\tResults: " + result.length + "\tIn MS: " + (System.currentTimeMillis() - startTime));
+        return result;
     }
 
     public static void main(String[] ryan) { 
