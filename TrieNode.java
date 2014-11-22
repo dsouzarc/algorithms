@@ -7,8 +7,8 @@ import java.util.LinkedList;
  * words from a dictionary */
 
 public class TrieNode { 
-    private final TrieNode parent;
-    private final TrieNode[] children;
+    public final TrieNode parent;
+    public final TrieNode[] children;
 
     //Last character of word
     private boolean isWord;
@@ -17,7 +17,7 @@ public class TrieNode {
     private boolean hasChildren;
 
     //Value of this node
-    private final char value;
+    public final char value;
 
     /** Top level Node constructor */
     public TrieNode() { 
