@@ -9,13 +9,13 @@ import java.util.Arrays;
 
 public class Meetings { 
     public static void main(String[] args) { 
-        final int[][] meetingList1 = new int[][]{new int[]{0, 1}, new int[]{1, 2}, new int[]{2, 3}, new int[]{3, 5}, new int[]{4, 5}};
+        final int[][] meetingList1 = new int[][]{new int[]{2, 3}, new int[]{0, 1}, new int[]{3, 4}, new int[]{1, 2}, new int[]{4, 5}};
 
         System.out.println("Original");
         print(meetingList1);
         sort(meetingList1);
 
-        System.out.println("Modified");
+        System.out.println("\nModified");
         print(meetingList1);
     }
 
@@ -24,16 +24,16 @@ public class Meetings {
      * Sorts meetings in chronological order (based on meeting start time) */
     public static void sort(final int[][] array) { 
         for(int i = 1; i < array.length; i++) { 
-            final int startTime = array[i][0];
+            final int[] temp = array[i];
 
-            int temp = i - 1;
+            int j = i;
 
-            while((temp >= 0) && (array[temp][0] > startTime)) { 
-                array[temp + 1] = array[temp];
-                temp--;
+            while(j > 0 && array[j - 1][0] > temp[0]) { 
+                array[j] = array[j - 1];
+                j--;
             }
 
-            array[temp + 1] = array[i];
+            array[j] = temp;
         }
     }
 
