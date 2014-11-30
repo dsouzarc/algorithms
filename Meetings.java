@@ -11,17 +11,18 @@ public class Meetings {
     public static void main(String[] args) { 
         final int[][] meetingList1 = new int[][]{new int[]{0, 1}, new int[]{1, 2}, new int[]{2, 3}, new int[]{3, 5}, new int[]{4, 5}};
 
-        System.out.println("Original: " + Arrays.toString(meetingList1));
-
+        System.out.println("Original");
+        print(meetingList1);
         sort(meetingList1);
 
-        System.out.println("Modified: " + Arrays.toString(meetingList2));
+        System.out.println("Modified");
+        print(meetingList1);
     }
 
     /** Sorts the array using Insertion Sort because, according to project specifications,
      * the # of meetings is less than 100
      * Sorts meetings in chronological order (based on meeting start time) */
-    public static void sort(final int[] array) { 
+    public static void sort(final int[][] array) { 
         for(int i = 1; i < array.length; i++) { 
             final int startTime = array[i][0];
 
@@ -33,6 +34,12 @@ public class Meetings {
             }
 
             array[temp + 1] = array[i];
+        }
+    }
+
+    public static void print(final int[][] array) { 
+        for(int i = 0; i < array.length; i++) { 
+            System.out.print(Arrays.toString(array[i]) + "\t");
         }
     }
 }
