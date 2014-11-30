@@ -9,8 +9,8 @@ import java.util.Arrays;
 
 public class Meetings { 
     public static void main(String[] args) { 
-        final int[][] meetingList1 = new int[][]{new int[]{2, 3}, new int[]{0, 1}, new int[]{3, 4}, new int[]{1, 2}, new int[]{4, 5}};
-
+        //final int[][] meetingList1 = new int[][]{new int[]{2, 3}, new int[]{0, 1}, new int[]{3, 4}, new int[]{1, 2}, new int[]{4, 5}};
+        final int[][] meetingList1 = new int[][]{new int[]{0, 10000}, new int[]{42, 43}, new int[]{0, 10000}, new int[]{42, 43}};
         System.out.println("Original");
         print(meetingList1);
         sort(meetingList1);
@@ -23,7 +23,7 @@ public class Meetings {
 
     /** Returns the most number of meetings that can be attended */
     public static int mostMeetings(final int[][] meetings) { 
-        int meetingCounter = 1;
+        int meetingCounter = 0;
 
         for(int i = 0; i < meetings.length - 1; i++) { 
             //If this & the next meeting's times are good (end of first meeting, start of second)
