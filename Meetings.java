@@ -17,6 +17,22 @@ public class Meetings {
 
         System.out.println("\nModified");
         print(meetingList1);
+
+        System.out.println("\nMaximum meetings: " + mostMeetings(meetingList1));
+    }
+
+    /** Returns the most number of meetings that can be attended */
+    public static int mostMeetings(final int[][] meetings) { 
+        int meetingCounter = 1;
+
+        for(int i = 0; i < meetings.length - 1; i++) { 
+            //If this & the next meeting's times are good (end of first meeting, start of second)
+            if(meetings[i][1] <= meetings[i + 1][0]) { 
+                meetingCounter++;
+            }
+        }
+
+        return meetingCounter;
     }
 
     /** Sorts the array using Insertion Sort because, according to project specifications,
@@ -25,14 +41,11 @@ public class Meetings {
     public static void sort(final int[][] array) { 
         for(int i = 1; i < array.length; i++) { 
             final int[] temp = array[i];
-
             int j = i;
-
             while(j > 0 && array[j - 1][0] > temp[0]) { 
                 array[j] = array[j - 1];
                 j--;
             }
-
             array[j] = temp;
         }
     }
