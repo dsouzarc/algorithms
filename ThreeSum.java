@@ -38,19 +38,23 @@ public class ThreeSum {
 
     //Prints all instances when sum = 0 (best/worst/avergae time = O(N^2)) 
     public static void print3SumAll(final Integer[] array) { 
+
+        //To hold all the elements
         final HashSet<Integer> values = new HashSet<Integer>(Arrays.asList(array));
         final int numElements = values.size();
 
-        //For counting how far up we are
+        //For counting how many elements we've iterated through
         int counter = 1;
 
-        //Because getting a value from a HashSet is O(1), we can use a normal for loop
+        //Look through all the elements
         for(Integer first : values) { 
 
+            //But stop one from the end
             if(counter == numElements) { 
                 return;
             }
 
+            //This finds the second number
             final Iterator<Integer> miniIterator = values.iterator();
 
             //Fast forward to where we are now
@@ -58,10 +62,13 @@ public class ThreeSum {
                 miniIterator.next();
             }
 
+            //Second number
             final int second = miniIterator.next();
 
+            //first + second + third = 0 --> third = -first - second
             final int third = -1 * (first + second);
 
+            //if the third number is there
             if(values.contains(third)) { 
                 System.out.println(first + "\t + " + second + "\t + " + third + "\t = 0");
             }
