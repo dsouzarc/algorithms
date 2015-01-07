@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 /** 
  * Represents a Dictionary of all the words in
@@ -18,11 +19,11 @@ import java.util.Arrays;
 public final class Dictionary { 
     
     private final Trie wordTrie;
+    private static final String fileName = "dictionary.txt";
     
     public Dictionary() { 
         this.wordTrie = new Trie();
 
-        final String fileName = "dictionary.txt";
         final long startTime = System.currentTimeMillis();
 
         try { 
@@ -44,6 +45,23 @@ public final class Dictionary {
         return this.wordTrie;
     }
 
+    public static String[] getAllWordsArray() { 
+        final LinkedList<String> allWords = new LinkedList<String>();
+
+        try { 
+            final BufferedReader theReader = new BufferedReader(new FileReader(fileName));
+
+            while(theReader.ready()) { 
+                allWords.add(theReader.readLine());
+            }
+        }
+        catch(Exception e) { 
+            System.out.println(e.toString());
+        }
+
+        return allWords.toArray(new String[allWords.size()]);
+    }
+                
     public String[] getWords(final String prefix) { 
         final long startTime = System.currentTimeMillis();
         final String[] result = this.wordTrie.getWordsWithPrefix(prefix.toLowerCase());
