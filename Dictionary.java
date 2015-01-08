@@ -52,7 +52,7 @@ public final class Dictionary {
             final BufferedReader theReader = new BufferedReader(new FileReader(fileName));
 
             while(theReader.ready()) { 
-                allWords.add(theReader.readLine());
+                allWords.add(theReader.readLine().toLowerCase());
             }
         }
         catch(Exception e) { 
