@@ -51,7 +51,13 @@ public class AllValidAnagrams {
         for(String r : ryan) { 
             final LinkedList<String> anagrams = sortedWords.get(sortedWord(r));
 
-            System.out.println(r + "\t" + Arrays.toString(anagrams.toArray(new String[anagrams.size()])));
+            //Some words have no anagrams
+            if(anagrams == null || anagrams.size() == 0) { 
+                System.out.println(r + "\tNo valid anagrams");
+            }
+            else { 
+                System.out.println(r + "\t" + Arrays.toString(anagrams.toArray(new String[anagrams.size()])));
+            }
         }
     }
 }
